@@ -4,6 +4,7 @@
 """This script prepares LOTUS referenced structure-organism pairs \n,
    for further processing"""
 
+import os
 import pandas
 import yaml
 
@@ -12,6 +13,8 @@ with open("paths.yaml", 'r') as stream:
         paths = yaml.safe_load(stream)
     except yaml.YAMLError as exc:
         print(exc)
+
+os.chdir(paths["base_dir"])
 
 file_initial = pandas.read_csv(paths["data"]["source"]["libraries"]["lotus"])
 
