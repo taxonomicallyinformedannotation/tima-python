@@ -6,8 +6,8 @@
 
 import glob
 import os
+
 import pandas
-import yaml
 
 from helpers.parse_yaml_params import parse_yaml_params
 from helpers.parse_yaml_paths import parse_yaml_paths

@@ -4,10 +4,7 @@
 """This script prepares LOTUS referenced structure-organism pairs \n,
    for further processing"""
 
-import os
-
 import pandas
-import yaml
 
 from helpers.parse_yaml_paths import parse_yaml_paths
 

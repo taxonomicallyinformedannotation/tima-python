@@ -5,8 +5,8 @@
    structure-organism pairs for further processing"""
 
 import os
+
 import pandas
-import yaml
 
 from helpers.parse_yaml_params import parse_yaml_params
 from helpers.parse_yaml_paths import parse_yaml_paths
@@ -26,7 +26,7 @@ if os.path.isfile(params["input"]):
     ).rename(
         columns={"structure_exact_mass": "exact_mass"}
     ).drop_duplicates(
-        
+
     )
 
     adducts = pandas.read_csv(
