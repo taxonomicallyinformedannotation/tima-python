@@ -39,8 +39,8 @@ df = pandas.concat((pandas.read_csv(f) for f in all_files))
 
 if (params["filter"]["mode"]):
     df = df[df.columns.str.contains(
-        pat=params["filter"]["level"]
-    ) == params["filter"]["value"]]
+        pat=params["filter"]["value"]
+    ) == params["filter"]["level"]]
 
 else:
     print("""Great, a comprehensive library""")
@@ -49,5 +49,6 @@ df.to_csv(
     path_or_buf=os.path.join(
         paths["data"]["interim"]["libraries"]["path"],
         params["output"]
-    )
+    ),
+    index=False
 )

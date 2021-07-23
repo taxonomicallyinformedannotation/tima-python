@@ -70,7 +70,8 @@ if os.path.isfile(params["input"]):
         )
 
     file_formatted.to_csv(
-        path_or_buf=params["output"]
+        path_or_buf=params["output"],
+        index=False
     )
 
 else:

@@ -53,9 +53,10 @@ file_formatted = file_initial.assign(
 ).drop(
     columns='structure_inchikey'
 ).drop_duplicates(
-    
+
 )
 
 file_formatted.to_csv(
-    path_or_buf=paths["data"]["interim"]["libraries"]["lotus"]
+    path_or_buf=paths["data"]["interim"]["libraries"]["lotus"],
+    index=False
 )

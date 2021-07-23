@@ -9,6 +9,8 @@ data:
     path: data/interim
     adducts:
       path: data/interim/adducts
+      neg: data/interim/adducts/adducts_neg.tsv.gz
+      pos: data/interim/adducts/adducts_pos.tsv.gz
     annotations:
       path: data/interim/annotations
     edges:
