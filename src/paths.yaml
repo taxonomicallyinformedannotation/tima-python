@@ -24,9 +24,11 @@ data:
         path: data/processed
   source:
     path: data/source
+    adducts: data/source/adducts.tsv
     libraries:
       path: data/source/libraries
       lotus: data/source/libraries/lotus.csv.gz
+    neutral_losses: data/source/neutral_losses.tsv
 doc:
   path: doc
 img:

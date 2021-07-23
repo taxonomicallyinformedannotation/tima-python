@@ -65,7 +65,9 @@ if os.path.isfile(params["input"]):
         file_initial.assign(
             structure_inchikey_2D=file_initial.structure_inchikey.str[0:13],
             reference_doi=""
-        ).drop_duplicates()
+        ).drop_duplicates(
+
+        )
 
     file_formatted.to_csv(
         path_or_buf=params["output"]

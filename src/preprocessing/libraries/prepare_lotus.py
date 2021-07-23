@@ -52,7 +52,9 @@ file_formatted = file_initial.assign(
     structure_inchikey_2D=file_initial.structure_inchikey.str[0:13]
 ).drop(
     columns='structure_inchikey'
-).drop_duplicates()
+).drop_duplicates(
+    
+)
 
 file_formatted.to_csv(
     path_or_buf=paths["data"]["interim"]["libraries"]["lotus"]
