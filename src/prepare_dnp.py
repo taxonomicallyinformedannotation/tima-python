@@ -5,29 +5,15 @@
    for further processing"""
 
 import os
-
 import pandas
 import yaml
 
-with open("paths.yaml", 'r') as stream:
-    try:
-        paths = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
+from helpers.parse_yaml_params import parse_yaml_params
+from helpers.parse_yaml_paths import parse_yaml_paths
 
-os.chdir(paths["base_dir"])
+paths = parse_yaml_paths()
 
-with open("config/default/prepare_dnp.yaml", 'r') as stream:
-    try:
-        params = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
-
-with open("config/params/prepare_dnp.yaml", 'r') as stream:
-    try:
-        params = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
+params = parse_yaml_params(step="prepare_dnp")
 
 if os.path.isfile(params["input"]):
     col_list = [

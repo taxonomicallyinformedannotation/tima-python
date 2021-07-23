@@ -10,3 +10,5 @@ data/source/private/**
 data/source/libraries/**
 data/interim/**
 data/processed/**
+
+__pycache__

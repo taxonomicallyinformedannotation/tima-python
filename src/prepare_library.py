@@ -6,29 +6,15 @@
 
 import glob
 import os
-
 import pandas
 import yaml
 
-with open("paths.yaml", 'r') as stream:
-    try:
-        paths = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
+from helpers.parse_yaml_params import parse_yaml_params
+from helpers.parse_yaml_paths import parse_yaml_paths
 
-os.chdir(paths["base_dir"])
+paths = parse_yaml_paths()
 
-with open("config/default/prepare_library.yaml", 'r') as stream:
-    try:
-        params = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
-
-with open("config/params/prepare_library.yaml", 'r') as stream:
-    try:
-        params = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
+params = parse_yaml_params(step="prepare_library")
 
 all_files = glob.glob(
     paths["data"]["interim"]["libraries"]["path"] +

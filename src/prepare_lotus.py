@@ -9,13 +9,9 @@ import os
 import pandas
 import yaml
 
-with open("paths.yaml", 'r') as stream:
-    try:
-        paths = yaml.safe_load(stream)
-    except yaml.YAMLError as exc:
-        print(exc)
+from helpers.parse_yaml_paths import parse_yaml_paths
 
-os.chdir(paths["base_dir"])
+paths = parse_yaml_paths()
 
 col_list = [
     # 'structure_name',
