@@ -6,6 +6,8 @@
 *.pyc
 *.Rhistory
 
+bin/**
+
 data/source/private/**
 data/source/libraries/**
 data/interim/**
