@@ -60,5 +60,7 @@ if os.path.isfile(params["input"]):
         index=False
     )
 
+## TODO export params when modified with CLI
+
 else:
     print("""Sorry, you do not have access to the DNP""")

@@ -53,3 +53,5 @@ file_formatted.to_csv(
     path_or_buf=paths["data"]["interim"]["libraries"]["lotus"],
     index=False
 )
+
+## TODO export params when modified with CLI
