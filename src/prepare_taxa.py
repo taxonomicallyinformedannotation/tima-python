@@ -12,7 +12,7 @@ from helpers.get_gnps import read_features
 from helpers.get_gnps import read_metadata
 from helpers.parse_yaml_params import parse_yaml_params
 from helpers.parse_yaml_paths import parse_yaml_paths
-from preprocessing.taxa.preclean_gnverifier import preclean_gnverifier
+from preprocessing.taxa.clean_gnverifier import clean_gnverifier
 
 paths = parse_yaml_paths()
 
@@ -66,13 +66,15 @@ if params["tool"] == 'gnps':
         index=False
     )
 
+    print('Submitting to GNVerifier')
+
     os.system(
         'bash' + " " + paths["src"]["gnverifier"]
     )
 
-    verified = preclean_gnverifier(file=paths["data"]["interim"]["taxa"]["verified"])
+    dataOrganismVerified_3 = clean_gnverifier(file=paths["data"]["interim"]["taxa"]["verified"])
 
-    print(verified)
+    print(dataOrganismVerified_3)
 
     ## rest to come
 

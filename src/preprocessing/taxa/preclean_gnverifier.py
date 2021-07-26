@@ -21,8 +21,7 @@ def preclean_gnverifier(file):
             'preferredResults'
         )
         df2 = verified_df.preferredResults.apply(pandas.Series)  ## this could be 1400x faster
-        df3 = df2[df2.dataSourceTitleShort == "Open Tree of Life"]
-        df4 = df3.rename(
+        df3 = df2.rename(
             columns={
                 'currentCanonicalFull': 'organismCleaned',
                 'dataSourceTitleShort': 'organismDbTaxo',
@@ -39,7 +38,7 @@ def preclean_gnverifier(file):
             'organismCleaned_dbTaxoTaxonomy',
             'organismCleaned_dbTaxoTaxonRanks'
         ]]
-        dataOrganismVerified = verified_df.join(df4)[[
+        dataOrganismVerified = verified_df.join(df3)[[
             'input',
             'organismCleaned',
             'organismDbTaxo',
