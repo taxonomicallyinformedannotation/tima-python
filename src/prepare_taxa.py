@@ -3,15 +3,16 @@
 
 """This script prepares taxa"""
 
+import os
 from sys import exit
 
-import os
 import pandas
 
 from helpers.get_gnps import read_features
 from helpers.get_gnps import read_metadata
 from helpers.parse_yaml_params import parse_yaml_params
 from helpers.parse_yaml_paths import parse_yaml_paths
+from preprocessing.taxa.preclean_gnverifier import preclean_gnverifier
 
 paths = parse_yaml_paths()
 
@@ -39,22 +40,22 @@ taxa_ranks_dictionary = pandas.read_csv(
 
 if params["tool"] == 'gnps':
     feature_table = read_features(gnps=params["gnps"]).filter(
-    	regex='(row ID)|( Peak area)'
-    	)
+        regex='(row ID)|( Peak area)'
+    )
     metadata_table = read_metadata(gnps=params["gnps"])
 
     feature_table.columns = feature_table.columns.str.rstrip(' Peak area')
 
     feature_table = pandas.melt(
-    	feature_table,
-    	id_vars=['row ID']
-    	)
+        feature_table,
+        id_vars=['row ID']
+    )
 
     feature_table = feature_table[feature_table['value'] != 0]
 
     feature_table["rank"] = feature_table.groupby(
-    	"row ID")["value"].rank(
-    	"dense", ascending=False)
+        "row ID")["value"].rank(
+        "dense", ascending=False)
 
     feature_table = feature_table[feature_table['rank'] <= params["top_k"]]
 
@@ -63,13 +64,17 @@ if params["tool"] == 'gnps':
     organism_table.to_csv(
         path_or_buf=paths["data"]["interim"]["taxa"]["original"],
         index=False
-        )
+    )
 
     os.system(
-        'bash'+" "+paths["src"]["gnverifier"]
-        )
+        'bash' + " " + paths["src"]["gnverifier"]
+    )
 
-    ## rest to come ...
+    verified = preclean_gnverifier(file=paths["data"]["interim"]["taxa"]["verified"])
+
+    print(verified)
+
+    ## rest to come
 
 else:
     print("""manual version still to do, Sorry""")
