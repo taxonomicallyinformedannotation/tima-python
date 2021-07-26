@@ -4,7 +4,7 @@
 import pandas
 
 
-def read_featuretable(gnps):
+def read_features(gnps):
     path = 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=' + gnps + '&block=main&file=quantification_table_reformatted/'
 
     file = pandas.read_csv(
@@ -13,7 +13,7 @@ def read_featuretable(gnps):
     return file
 
 
-def read_metadatatable(gnps):
+def read_metadata(gnps):
     path = 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=' + gnps + '&block=main&file=metadata_table/'
 
     file = pandas.read_csv(
@@ -22,7 +22,7 @@ def read_metadatatable(gnps):
     return file
 
 
-def read_library_hits(gnps):
+def read_results(gnps):
     path = 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=' + gnps + '&block=main&file=DB_result/'
 
     file = pandas.read_csv(
@@ -31,7 +31,7 @@ def read_library_hits(gnps):
     return file
 
 
-def read_clusterinfo(gnps):
+def read_clusters(gnps):
     path = 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=' + gnps + '&block=main&file=clusterinfo_summary/'
 
     file = pandas.read_csv(
