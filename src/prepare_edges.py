@@ -3,8 +3,6 @@
 
 """This script prepares edges"""
 
-import pandas
-
 from helpers.get_gnps import read_edges
 from helpers.parse_yaml_params import parse_yaml_params
 from helpers.parse_yaml_paths import parse_yaml_paths
@@ -24,12 +22,12 @@ if params["tool"] == 'gnps':
             params["target_name"]: 'feature_target'
         }
     )[['feature_source', 'feature_target']].query(
-    'feature_source != feature_target'
+        'feature_source != feature_target'
     )
 
     edges_table_treated.to_csv(
-    path_or_buf=params["output"],
-    index=False
+        path_or_buf=params["output"],
+        index=False
     )
 else:
     print("""manual version still to do, Sorry""")
