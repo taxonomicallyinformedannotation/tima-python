@@ -5,6 +5,7 @@
 
 from sys import exit
 
+import os
 import pandas
 
 from helpers.get_gnps import read_features
@@ -17,14 +18,14 @@ paths = parse_yaml_paths()
 params = parse_yaml_params(step="prepare_taxa")
 
 if params["tool"] in ['gnps', 'manual']:
-    print(""" Tool parameter OK""")
+    print("""Tool parameter OK""")
 else:
     print(
         """Your --tool.metadata parameter (in command line arguments or in 'inform_params.yaml' must be either 'gnps' or 'manual'""")
     exit()
 
 if params["top_k"] <= 5:
-    print(""" Top K parameter OK""")
+    print("""Top K parameter OK""")
 else:
     print(
         """Your --top_k.organism_per_feature parameter (in command line arguments or in 'inform_params.yaml' should be lower or equal to 5""")
@@ -57,10 +58,18 @@ if params["tool"] == 'gnps':
 
     feature_table = feature_table[feature_table['rank'] <= params["top_k"]]
 
+    organism_table = metadata_table[params["column_name"]].drop_duplicates()
+
+    organism_table.to_csv(
+        path_or_buf=paths["data"]["interim"]["taxa"]["original"],
+        index=False
+        )
+
+    os.system(
+        'bash'+" "+paths["src"]["gnverifier"]
+        )
+
     ## rest to come ...
-    
-    print(metadata_table)
-    print(feature_table)
 
 else:
     print("""manual version still to do, Sorry""")
