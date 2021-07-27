@@ -81,34 +81,33 @@ if params["tool"] == 'gnps':
         metadata_table.filename = metadata_table.filename.str.rstrip('.mzML')
         metadata_table.filename = metadata_table.filename.str.rstrip('.mzxML')
 
-        metadata_table_joined = feature_table.set_index(
-            'variable').join(
-            metadata_table.set_index(
-                'filename'))[['row ID', params["column_name"]]].rename(
-            columns={
-                'row ID': 'feature_id',
-                params["column_name"]: 'organismOriginal'
-            }
-        ).merge(
-            organism_cleaned_manipulated
-        ).drop(
-            columns={
-                'organismOriginal'
-            })
+    metadata_table_joined = feature_table.set_index(
+        'variable').join(
+        metadata_table.set_index(
+            'filename'))[['row ID', params["column_name"]]].rename(
+        columns={
+            'row ID': 'feature_id',
+            params["column_name"]: 'organismOriginal'
+        }
+    ).merge(
+        organism_cleaned_manipulated
+    ).drop(
+        columns={
+            'organismOriginal',
+            'organismCleaned'
+        })
 
-    ## summarizing/aggregating step TODO
-    # dplyr::summarise_all(function(x) {
-    #     x <- list(paste(unique(x[!is.na(x)]), collapse = "|"))
-    #   })
+    metadata_table_joined_summarized = metadata_table_joined.groupby(
+        "feature_id").agg(
+        lambda x: '|'.join(
+            {elem for elem in x if ~pandas.isnull(elem)})).reset_index()
 
-    metadata_table_joined_summarized = metadata_table_joined
-
-    metadata_table_joined_summarized.to_csv(
-        path_or_buf=params["output"],
-        index=False
-    )
+metadata_table_joined_summarized.to_csv(
+    path_or_buf=params["output"],
+    index=False
+)
 
 else:
-    print("""manual version still to do, Sorry""")
+print("""manual version still to do, Sorry""")
 
 ## TODO export params when modified with CLI
