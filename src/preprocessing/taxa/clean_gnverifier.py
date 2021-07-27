@@ -27,8 +27,8 @@ def clean_gnverifier(file):
 
         organism_table_2 = dataOrganismVerified[['input', 'organismCleaned']].drop_duplicates()
         organism_table_2 = \
-        organism_table_2[organism_table_2['input'] != organism_table_2['organismCleaned']][['organismCleaned']][
-            organism_table_2['organismCleaned'].notnull()].drop_duplicates()
+            organism_table_2[organism_table_2['input'] != organism_table_2['organismCleaned']][['organismCleaned']][
+                organism_table_2['organismCleaned'].notnull()].drop_duplicates()
 
         if len(organism_table_2.index) != 0:
 

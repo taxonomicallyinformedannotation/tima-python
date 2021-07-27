@@ -13,6 +13,7 @@ from helpers.get_gnps import read_metadata
 from helpers.parse_yaml_params import parse_yaml_params
 from helpers.parse_yaml_paths import parse_yaml_paths
 from preprocessing.taxa.clean_gnverifier import clean_gnverifier
+from preprocessing.taxa.manipulating_taxo_otl import manipulating_taxo_otl
 
 paths = parse_yaml_paths()
 
@@ -36,8 +37,6 @@ taxa_ranks_dictionary = pandas.read_csv(
     filepath_or_buffer=paths["data"]["source"]["dictionaries"]["ranks"]
 )
 
-## TODO manual possibility to add
-
 if params["tool"] == 'gnps':
     feature_table = read_features(gnps=params["gnps"]).filter(
         regex='(row ID)|( Peak area)'
@@ -59,6 +58,8 @@ if params["tool"] == 'gnps':
 
     feature_table = feature_table[feature_table['rank'] <= params["top_k"]]
 
+    ## TODO manual possibility to add
+
     organism_table = metadata_table[params["column_name"]].drop_duplicates()
 
     organism_table.to_csv(
@@ -74,9 +75,38 @@ if params["tool"] == 'gnps':
 
     dataOrganismVerified_3 = clean_gnverifier(file=paths["data"]["interim"]["taxa"]["verified"])
 
-    print(dataOrganismVerified_3)
+    organism_cleaned_manipulated = manipulating_taxo_otl(dataOrganismVerified_3)
 
-    ## rest to come
+    if (params["extension"] == False):
+        metadata_table.filename = metadata_table.filename.str.rstrip('.mzML')
+        metadata_table.filename = metadata_table.filename.str.rstrip('.mzxML')
+
+        metadata_table_joined = feature_table.set_index(
+            'variable').join(
+            metadata_table.set_index(
+                'filename'))[['row ID', params["column_name"]]].rename(
+            columns={
+                'row ID': 'feature_id',
+                params["column_name"]: 'organismOriginal'
+            }
+        ).merge(
+            organism_cleaned_manipulated
+        ).drop(
+            columns={
+                'organismOriginal'
+            })
+
+    ## summarizing/aggregating step TODO
+    # dplyr::summarise_all(function(x) {
+    #     x <- list(paste(unique(x[!is.na(x)]), collapse = "|"))
+    #   })
+
+    metadata_table_joined_summarized = metadata_table_joined
+
+    metadata_table_joined_summarized.to_csv(
+        path_or_buf=params["output"],
+        index=False
+    )
 
 else:
     print("""manual version still to do, Sorry""")
