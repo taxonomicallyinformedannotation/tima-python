@@ -27,7 +27,8 @@ def read_results(gnps):
     path = 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=' + gnps + '&block=main&file=DB_result/'
 
     file = pandas.read_csv(
-        filepath_or_buffer=path
+        filepath_or_buffer=path,
+        sep='\t'
     )
     return file
 
