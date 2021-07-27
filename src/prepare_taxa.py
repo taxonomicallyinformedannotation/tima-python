@@ -77,7 +77,7 @@ if params["tool"] == 'gnps':
 
     organism_cleaned_manipulated = manipulating_taxo_otl(dataOrganismVerified_3)
 
-    if (params["extension"] == False):
+    if not params["extension"]:
         metadata_table.filename = metadata_table.filename.str.rstrip('.mzML')
         metadata_table.filename = metadata_table.filename.str.rstrip('.mzxML')
 
@@ -102,12 +102,12 @@ if params["tool"] == 'gnps':
         lambda x: '|'.join(
             {elem for elem in x if ~pandas.isnull(elem)})).reset_index()
 
-metadata_table_joined_summarized.to_csv(
-    path_or_buf=params["output"],
-    index=False
-)
+    metadata_table_joined_summarized.to_csv(
+        path_or_buf=params["output"],
+        index=False
+    )
 
 else:
-print("""manual version still to do, Sorry""")
+    print("""manual version still to do, Sorry""")
 
 ## TODO export params when modified with CLI

@@ -32,4 +32,4 @@ if params["tool"] == 'gnps':
 else:
     print("""manual version still to do, Sorry""")
 
-## TODO export params when modified with CLI
+# TODO export params when modified with CLI

@@ -23,7 +23,7 @@ all_files = glob.glob(
 
 df = pandas.concat((pandas.read_csv(f) for f in all_files))
 
-if (params["filter"]["mode"]):
+if params["filter"]["mode"]:
     df = df[df.columns.str.contains(
         pat=params["filter"]["value"]
     ) == params["filter"]["level"]]
@@ -39,4 +39,4 @@ df.to_csv(
     index=False
 )
 
-## TODO export params when modified with CLI
+# TODO export params when modified with CLI
