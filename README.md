@@ -14,10 +14,10 @@
 
 bash src/get-lotus.sh &&
 cd src &&
-python prepare_lotus.R &&
-# python prepare_dnp.R && # only if you have access to it
-python prepare_library.R &&
-python prepare_adducts.R &&
+python prepare_lotus.py &&
+# python prepare_dnp.py && # only if you have access to it
+python prepare_library.py &&
+python prepare_adducts.py &&
 
 
 # get spectral matches
@@ -31,16 +31,16 @@ bash src/get_example_isdb.sh && # get an example result from new isdb without py
 # NOT READY YET
 bash src/get_gnverifier.sh &&
 cd src &&
-python prepare_gnps.R && # optional
-python prepare_isdb.R &&
-# python prepare_features_components.R &&
-# python prepare_features_classification.R &&
-python prepare_edges.R && 
-python prepare_taxa.R 
+python prepare_gnps.py && # optional
+python prepare_isdb.py &&
+# python prepare_features_components.py &&
+# python prepare_features_classification.py &&
+python prepare_edges.py && 
+python prepare_taxa.py 
 
 # And finally the graal!
 # NOT READY YET
-# python process_annotations.R
+# python process_annotations.py
 
 # NOTE: you can use --help or -h argument for all .py steps to get more info
 ```
