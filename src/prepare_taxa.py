@@ -1,23 +1,46 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""This script prepares taxa"""
+"""You can use this script with the following example:
+python prepare_taxa.py --output 'data/interim/taxa/db1c51fa29a64892af520698a18783e4_taxed.tsv.gz' --tool gnps --k.top 1 --column.name 'ATTRIBUTE_species' --extension FALSE
+
+Usage: prepare_taxa.py [--input=<input>] [--output=<output>] [--tool=<tool>] [--column.name=<column.name>] [--gnps=<gnps>] [--k.top=<k.top>]
+
+Options:
+  -c --column.name=<column.name>  Name of the column containing the lowest possible taxon in your feature file.
+  -e --extension=<extension>      Is the filename extension in your feature table? Boolean
+  -g --gnps=<gnps>                Your GNPS job id. Depending on the annotation tool you used
+  -i --input=<input>              File containing your intensity/sample to attribute biological source. Supports compressed files.
+  -k --k.top=<k.top>              Number of allowed biological sources per feature. Should not exceed 5.
+  -o --output=<output>            Path and filename for the output. If you specify .gz file will be compressed.
+  -t --tool=<tool>                Tool you used for your metadata organization ('gnps' and 'manual' currently supported)
+  -h --help                       Show this screen.
+  -v --version                    Show version.
+
+"""
 
 import os
 from sys import exit
 
 import pandas
+from docopt import docopt
 
+from helpers.export_params import export_params
 from helpers.get_gnps import read_features
 from helpers.get_gnps import read_metadata
-from helpers.parse_yaml_params import parse_yaml_params
+from helpers.get_params import get_params
 from helpers.parse_yaml_paths import parse_yaml_paths
 from preprocessing.taxa.clean_gnverifier import clean_gnverifier
 from preprocessing.taxa.manipulating_taxo_otl import manipulating_taxo_otl
 
+if __name__ == '__main__':
+    arguments = docopt(__doc__)
+
+step = 'prepare_taxa'
+
 paths = parse_yaml_paths()
 
-params = parse_yaml_params(step="prepare_taxa")
+params = get_params(step=step, cli=arguments)
 
 if params["tool"] in ['gnps', 'manual']:
     print("""Tool parameter OK""")
@@ -107,7 +130,10 @@ if params["tool"] == 'gnps':
         index=False
     )
 
+    export_params(
+        parameters=params,
+        directory=paths["data"]["interim"]["config"]["path"],
+        step=step)
+
 else:
     print("""manual version still to do, Sorry""")
-
-## TODO export params when modified with CLI
