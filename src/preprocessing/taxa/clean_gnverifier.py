@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from .preclean_gnverifier import preclean_gnverifier
-import pandas
 import os
+
+import pandas
+
+from .preclean_gnverifier import preclean_gnverifier
 
 
 def clean_gnverifier(paths, file):

@@ -17,8 +17,8 @@ from setuptools import setup
 
 def read(*names, **kwargs):
     with io.open(
-        join(dirname(__file__), *names),
-        encoding=kwargs.get('encoding', 'utf8')
+            join(dirname(__file__), *names),
+            encoding=kwargs.get('encoding', 'utf8')
     ) as fh:
         return fh.read()
 
@@ -84,9 +84,9 @@ setup(
     setup_requires=[
         'pytest-runner',
     ],
-    #entry_points={
+    # entry_points={
     #    'console_scripts': [
     #        'nameless = nameless.cli:main',
     #    ]
-    #},
+    # },
 )
