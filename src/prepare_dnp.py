@@ -35,6 +35,7 @@ paths = parse_yaml_paths()
 params = get_params(step=step, cli=arguments)
 
 if os.path.isfile(params["input"]):
+
     col_list = [
         # 'structure_name',
         # 'structure_inchikey_2D',
@@ -60,12 +61,14 @@ if os.path.isfile(params["input"]):
         # 'reference_title',
         # 'reference_doi'
     ]
-
+    
+    print('Loading DNP')
     file_initial = pandas.read_csv(
         filepath_or_buffer=params["input"],
         usecols=col_list
     )
 
+    print('Formatting DNP')
     file_formatted = \
         file_initial.assign(
             structure_inchikey_2D=file_initial.structure_inchikey.str[0:13],
@@ -74,6 +77,7 @@ if os.path.isfile(params["input"]):
 
         )
 
+    print('Exporting DNP')
     file_formatted.to_csv(
         path_or_buf=params["output"],
         index=False

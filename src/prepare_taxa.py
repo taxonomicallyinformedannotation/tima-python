@@ -56,54 +56,64 @@ else:
         """Your --top_k.organism_per_feature parameter (in command line arguments or in 'inform_params.yaml' should be lower or equal to 5""")
     exit()
 
+print('Loading ...')
+print('... taxa ranks dictionary')
 taxa_ranks_dictionary = pandas.read_csv(
     filepath_or_buffer=paths["data"]["source"]["dictionaries"]["ranks"]
 )
 
 if params["tool"] == 'gnps':
+    print('... feature table')
     feature_table = read_features(gnps=params["gnps"]).filter(
         regex='(row ID)|( Peak area)'
     )
+
+    print('... metadata table')
     metadata_table = read_metadata(gnps=params["gnps"])
 
+    print('Formatting feature table ...')
+    print('... WARNING: requires "Peak area" in columns (MZmine format)')
     feature_table.columns = feature_table.columns.str.rstrip(' Peak area')
-
     feature_table = pandas.melt(
         feature_table,
         id_vars=['row ID']
     )
-
+    print('... filtering top K intensities per feature')
     feature_table = feature_table[feature_table['value'] != 0]
-
     feature_table["rank"] = feature_table.groupby(
         "row ID")["value"].rank(
         "dense", ascending=False)
-
     feature_table = feature_table[feature_table['rank'] <= params["top_k"]]
 
     ## TODO manual possibility to add
 
+    print('Keeping list of organisms to submit to GNVerifier')
     organism_table = metadata_table[params["column_name"]].drop_duplicates()
 
+    print('Exporting organisms for GNVerifier submission')
     organism_table.to_csv(
         path_or_buf=paths["data"]["interim"]["taxa"]["original"],
         index=False
     )
 
     print('Submitting to GNVerifier')
-
     os.system(
         'bash' + " " + paths["src"]["gnverifier"]
     )
 
     dataOrganismVerified_3 = clean_gnverifier(file=paths["data"]["interim"]["taxa"]["verified"])
 
+    print('Formatting obtained OTL taxonomy')
     organism_cleaned_manipulated = manipulating_taxo_otl(dataOrganismVerified_3)
 
     if not params["extension"]:
+        print('Removing filename extensions')
         metadata_table.filename = metadata_table.filename.str.rstrip('.mzML')
         metadata_table.filename = metadata_table.filename.str.rstrip('.mzxML')
 
+    # TODO add manual option
+
+    print('Joining top K with metadata table with cleaned taxonomy')
     metadata_table_joined = feature_table.set_index(
         'variable').join(
         metadata_table.set_index(
@@ -120,11 +130,13 @@ if params["tool"] == 'gnps':
             'organismCleaned'
         })
 
+    print('Summarizing')
     metadata_table_joined_summarized = metadata_table_joined.groupby(
         "feature_id").agg(
         lambda x: '|'.join(
             {elem for elem in x if ~pandas.isnull(elem)})).reset_index()
 
+    print('Exporting taxed features table')
     metadata_table_joined_summarized.to_csv(
         path_or_buf=params["output"],
         index=False

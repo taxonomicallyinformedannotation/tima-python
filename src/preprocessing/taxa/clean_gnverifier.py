@@ -8,22 +8,18 @@ def clean_gnverifier(file):
     dataOrganismVerified = preclean_gnverifier(file).iloc[1:, :]
 
     df1 = dataOrganismVerified[dataOrganismVerified.input.notnull()]
-
     df1 = df1.assign(col=[organismCleaned if organismDbTaxo == 'Open Tree of Life' else '' for organismDbTaxo in
                           df1['organismCleaned']]).rename(
         columns={
             'input': 'organism'
         }
     )
-
     df2 = df1[['organism', 'organismCleaned']].drop_duplicates()
-
     df2['count'] = df2.groupby('organism')['organism'].transform('count')
-
     warning = df2[df2['count'] == 1][df2['organismCleaned'].isnull()]
 
     if len(warning.index) != 0:
-        print('Warning: ' + warning["organism"] + ' has no translation, trying with a more flexible solution')
+        print('Warning: ' + warning["organism"] + ' has no translation, trying with more flexible parameters')
 
         organism_table_2 = dataOrganismVerified[['input', 'organismCleaned']].drop_duplicates()
         organism_table_2 = \
@@ -32,13 +28,13 @@ def clean_gnverifier(file):
 
         if len(organism_table_2.index) != 0:
 
+            print('Exporting organisms for GNVerifier resubmission')
             organism_table_2.to_csv(
                 path_or_buf=paths["data"]["interim"]["taxa"]["original_2"],
                 index=False
             )
 
-            print('Submitting to GNVerifier')
-
+            print('Submitting to GNVerifier with more flexible parameters')
             os.system(
                 'bash' + " " + paths["src"]["gnverifier"]
             )
@@ -49,13 +45,12 @@ def clean_gnverifier(file):
                 }
             )
 
+            print('Joining both results')
             dataOrganismVerified_3 = pandas.concat([dataOrganismVerified, dataOrganismVerified_2])
-
             dataOrganismVerified_3 = dataOrganismVerified_3[
                 dataOrganismVerified_3['organismDbTaxo'] == 'Open Tree of Life'].drop_duplicates()
 
             warning_2 = organism_table.join(dataOrganismVerified_3)
-
             warning_2 = warning_2[warning_2['organism'].notnull()][warning_2['organismDbTaxo'].isnull()]
 
             if len(organism_table_2.index) != 0:

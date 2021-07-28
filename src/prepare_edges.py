@@ -37,8 +37,11 @@ params = get_params(step=step, cli=arguments)
 # TODO manual possibility to add
 
 if params["tool"] == 'gnps':
+
+    print('Loading edges table')
     edges_table = read_edges(gnps=params["gnps"])
 
+    print('Formatting edges table')
     edges_table_treated = edges_table.rename(
         columns={
             params["source_name"]: 'feature_source',
@@ -48,6 +51,7 @@ if params["tool"] == 'gnps':
         'feature_source != feature_target'
     )
 
+    print('Exporting edges table')
     edges_table_treated.to_csv(
         path_or_buf=params["output"],
         index=False

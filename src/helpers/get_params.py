@@ -6,6 +6,7 @@ from helpers.parse_yaml_params import parse_yaml_params
 
 
 def get_params(step, cli):
+    print('Loading parameters')
     params = parse_yaml_params(step)
     params = parse_cli_params(params, cli)
     return (params)

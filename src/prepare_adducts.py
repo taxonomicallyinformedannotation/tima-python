@@ -31,13 +31,17 @@ if __name__ == '__main__':
     arguments = docopt(__doc__)
 
 step = 'prepare_adducts'
+
 paths = parse_yaml_paths()
 
 params = get_params(step=step, cli=arguments)
 
-col_list = ["structure_exact_mass"]
-
 if os.path.isfile(params["input"]):
+    
+    col_list = ["structure_exact_mass"]
+
+    print('Loading files ...')
+    print('... structure masses')
     masses = pandas.read_csv(
         filepath_or_buffer=params["input"],
         usecols=col_list
@@ -47,17 +51,17 @@ if os.path.isfile(params["input"]):
 
     )
 
+    print('... adducts')
     adducts = pandas.read_csv(
         filepath_or_buffer=paths["data"]["source"]["adducts"], sep='\t'
     ).transpose(
 
     )
 
+    print('Treating adducts table')
     adducts.columns = adducts.iloc[0]
-
     adducts = adducts.filter(
         like='mass', axis=0)
-
     masses_adducts = pandas.concat(
         objs=[masses.reset_index(drop=True),
               adducts.reset_index(drop=True)],
@@ -66,7 +70,6 @@ if os.path.isfile(params["input"]):
     ).ffill(
         axis=0
     )
-
     masses_null = pandas.concat(
         objs=[pandas.DataFrame({'exact_mass': 0}, index=[0]).reset_index(drop=True),
               adducts.reset_index(drop=True)],
@@ -75,23 +78,27 @@ if os.path.isfile(params["input"]):
     ).ffill(
         axis=0
     )
-
     masses_adducts.columns = list(masses.columns.values) + list(adducts.columns.values)
-
     masses_null.columns = list(masses.columns.values) + list(adducts.columns.values)
 
+    print('Adding adducts to exact masses ...')
+    print('... positive')
     adducts_pos = form_adducts_pos(dataframe=masses_adducts, adducts=adducts).drop_duplicates()
 
+    print('... negative')
     adducts_neg = form_adducts_neg(dataframe=masses_adducts, adducts=adducts).drop_duplicates()
 
+    print('... pure adduct masses ...')
+    print('... positive')
     pure_pos = form_adducts_pos(dataframe=masses_null, adducts=adducts)
-
     pure_pos = pure_pos[pure_pos['adduct'].str.contains(pat="pos_1")]
 
+    print('... negative')
     pure_neg = form_adducts_neg(dataframe=masses_null, adducts=adducts)
-
     pure_neg = pure_neg[pure_neg['adduct'].str.contains(pat="neg_1")]
 
+    print('Exporting ...')
+    print('... structure adducts positive')
     adducts_pos.to_csv(
         path_or_buf=os.path.join(
             paths["data"]["interim"]["adducts"]["path"],
@@ -101,6 +108,7 @@ if os.path.isfile(params["input"]):
         index=False
     )
 
+    print('... structure adducts negative')
     adducts_neg.to_csv(
         path_or_buf=os.path.join(
             paths["data"]["interim"]["adducts"]["path"],
@@ -110,11 +118,13 @@ if os.path.isfile(params["input"]):
         index=False
     )
 
+    print('... adducts masses positive')
     pure_pos.to_csv(
         path_or_buf=paths["data"]["interim"]["adducts"]["pos"],
         index=False
     )
 
+    print('... adducts masses negative')
     pure_neg.to_csv(
         path_or_buf=paths["data"]["interim"]["adducts"]["neg"],
         index=False

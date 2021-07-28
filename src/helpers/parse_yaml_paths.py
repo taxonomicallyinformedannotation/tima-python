@@ -7,6 +7,7 @@ import yaml
 
 
 def parse_yaml_paths():
+    print('Loading paths')
     with open("paths.yaml", 'r') as stream:
         try:
             paths = yaml.safe_load(stream)

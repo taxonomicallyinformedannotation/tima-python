@@ -10,6 +10,7 @@ from helpers.parse_yaml_paths import parse_yaml_paths
 
 paths = parse_yaml_paths()
 
+print('Loading LOTUS library')
 col_list = [
     # 'structure_name',
     # 'structure_inchikey_2D',
@@ -35,23 +36,20 @@ col_list = [
     # 'reference_title',
     'reference_doi'
 ]
-
 file_initial = pandas.read_csv(
     filepath_or_buffer=paths["data"]["source"]["libraries"]["lotus"],
     usecols=col_list
 )
 
+print('Minimal formatting...')
 file_formatted = file_initial.assign(
     structure_inchikey_2D=file_initial.structure_inchikey.str[0:13]
 ).drop(
     columns='structure_inchikey'
-).drop_duplicates(
+).drop_duplicates()
 
-)
-
+print('Exporting LOTUS library')
 file_formatted.to_csv(
     path_or_buf=paths["data"]["interim"]["libraries"]["lotus"],
     index=False
 )
-
-# TODO export params when modified with CLI

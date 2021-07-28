@@ -35,10 +35,13 @@ paths = parse_yaml_paths()
 params = get_params(step=step, cli=arguments)
 
 if os.path.isfile(params["input"]):
+
+    print('Loading ISDB results')
     results_table = pandas.read_csv(
         filepath_or_buffer=params["input"]
     )
 
+    print('Formatting ISDB results')
     results_table_treated = results_table.rename(
         columns={
             'short_inchikey': 'inchikey_2D',
@@ -46,14 +49,12 @@ if os.path.isfile(params["input"]):
             'msms_score': 'score_input'
         }
     )
-
     results_table_treated['library'] = 'ISDB'
     results_table_treated['inchikey'] = ''
     results_table_treated['smiles_2D'] = results_table_treated['smiles']
     results_table_treated['structure_taxonomy_npclassifier_01pathway'] = ''
     results_table_treated['structure_taxonomy_npclassifier_02superclass'] = ''
     results_table_treated['structure_taxonomy_npclassifier_03class'] = ''
-
     results_table_treated = results_table_treated[[
         'feature_id',
         'smiles',
@@ -69,11 +70,12 @@ if os.path.isfile(params["input"]):
         'molecular_formula'
     ]]
 
+    print('Exporting ISDB results')
     results_table_treated.to_csv(
         path_or_buf=params["output"],
         index=False
     )
-
+    
     export_params(
         parameters=params,
         directory=paths["data"]["interim"]["config"]["path"],

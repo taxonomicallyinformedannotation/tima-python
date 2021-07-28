@@ -8,11 +8,13 @@ import pandas
 
 def preclean_gnverifier(file):
     verified = []
-    print("Started Reading JSON file which contains multiple JSON document")
+    print("Loading GNVerifier results")
     with open(file) as f:
         for jsonObj in f:
             Dict = json.loads(jsonObj)
             verified.append(Dict)
+
+        print("Formatting GNVerifier results")
         verified_df = pandas.DataFrame.from_records(
             verified
         ).drop(

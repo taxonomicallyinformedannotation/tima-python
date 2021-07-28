@@ -33,8 +33,10 @@ paths = parse_yaml_paths()
 
 params = get_params(step=step, cli=arguments)
 
+print('Loading GNPS results')
 results_table = read_results(gnps=params["gnps"])
 
+print('Formatting GNPS results')
 results_table_treated = results_table.rename(
     columns={
         '#Scan#': 'feature_id',
@@ -48,11 +50,9 @@ results_table_treated = results_table.rename(
         'MQScore': 'score_input'
     }
 )
-
 results_table_treated['library'] = 'GNPS'
 results_table_treated['smiles_2D'] = ''
 results_table_treated['molecular_formula'] = ''
-
 results_table_treated = results_table_treated[[
     'feature_id',
     'smiles',
@@ -68,6 +68,7 @@ results_table_treated = results_table_treated[[
     'molecular_formula'
 ]]
 
+print('Exporting GNPS results')
 results_table_treated.to_csv(
     path_or_buf=params["output"],
     index=False
