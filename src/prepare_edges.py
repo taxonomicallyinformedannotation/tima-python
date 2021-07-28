@@ -17,6 +17,7 @@ Options:
   -v --version                          Show version.
 
 """
+import os
 
 from docopt import docopt
 
@@ -50,6 +51,7 @@ if params["tool"] == 'gnps':
     )
 
     print('Exporting edges table')
+    os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
     edges_table_treated.to_csv(
         path_or_buf=params["output"],
         index=False
