@@ -77,6 +77,7 @@ if os.path.isfile(params["input"]):
 
         )
 
+    os.makedirs(os.path.dirname(params["output"]))
     print('Exporting DNP')
     file_formatted.to_csv(
         path_or_buf=params["output"],
