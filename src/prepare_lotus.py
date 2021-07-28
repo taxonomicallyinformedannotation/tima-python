@@ -43,7 +43,7 @@ file_initial = pandas.read_csv(
 
 print('Minimal formatting...')
 file_formatted = file_initial.assign(
-    structure_inchikey_2D=file_initial.structure_inchikey.str[0:13]
+    structure_inchikey_2D=file_initial.structure_inchikey.str[0:14]
 ).drop(
     columns='structure_inchikey'
 ).drop_duplicates()
