@@ -91,6 +91,7 @@ if params["tool"] == 'gnps':
     organism_table = metadata_table[params["column_name"]].drop_duplicates()
 
     print('Exporting organisms for GNVerifier submission')
+    os.makedirs(os.path.dirname(paths["data"]["interim"]["taxa"]["original"]), exist_ok=True)
     organism_table.to_csv(
         path_or_buf=paths["data"]["interim"]["taxa"]["original"],
         index=False

@@ -14,4 +14,5 @@ python src/prepare_adducts.py &&
 ./src/get_gnverifier.sh &&
 python src/prepare_gnps.py &&
 python src/prepare_isdb.py &&
-python src/prepare_edges.py
+python src/prepare_edges.py &&
+python src/prepare_taxa.py
