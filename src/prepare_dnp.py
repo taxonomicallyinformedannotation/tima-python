@@ -76,9 +76,9 @@ if os.path.isfile(params["input"]):
         ).drop_duplicates(
 
         )
-
-    os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
+    
     print('Exporting DNP')
+    os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
     file_formatted.to_csv(
         path_or_buf=params["output"],
         index=False

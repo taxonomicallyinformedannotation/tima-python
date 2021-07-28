@@ -69,6 +69,7 @@ results_table_treated = results_table_treated[[
 ]]
 
 print('Exporting GNPS results')
+os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
 results_table_treated.to_csv(
     path_or_buf=params["output"],
     index=False

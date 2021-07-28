@@ -89,6 +89,7 @@ if params["tool"] == 'gnps':
         )
 
     print('Exporting features with components')
+    os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
     table_filled.to_csv(
         path_or_buf=params["output"],
         index=False

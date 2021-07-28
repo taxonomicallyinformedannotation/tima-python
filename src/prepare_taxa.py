@@ -138,6 +138,7 @@ if params["tool"] == 'gnps':
             {elem for elem in x if ~pandas.isnull(elem)})).reset_index()
 
     print('Exporting taxed features table')
+    os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
     metadata_table_joined_summarized.to_csv(
         path_or_buf=params["output"],
         index=False

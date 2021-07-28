@@ -171,6 +171,7 @@ table_final = table[[
                 ).merge(table_formuled)
 
 print('Exporting features with components and metadata')
+os.makedirs(os.path.dirname(params["output"]), exist_ok=True)
 table_final.to_csv(
     path_or_buf=params["output"],
     index=False
