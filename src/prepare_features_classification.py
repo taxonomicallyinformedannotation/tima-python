@@ -23,7 +23,6 @@ import os
 import pandas
 from docopt import docopt
 
-from helpers.export_params import export_params
 from helpers.get_params import get_params
 from helpers.parse_yaml_paths import parse_yaml_paths
 
@@ -36,17 +35,65 @@ paths = parse_yaml_paths()
 
 params = get_params(step=step, cli=arguments)
 
-if os.path.isfile(params["input"]):
-    print('bla')
-
-    file_initial = pandas.read_csv(
-        filepath_or_buffer=params["input"]
-    )
-
-    export_params(
-        parameters=params,
-        directory=paths["data"]["interim"]["config"]["path"],
-        step=step)
-
+print('Loading ...')
+if os.path.isfile(params["library"]):
+    col_list = [
+        'structure_inchikey_2D',
+        'structure_smiles_2D',
+        'structure_exact_mass',
+        'structure_molecular_formula',
+        'structure_taxonomy_npclassifier_01pathway',
+        'structure_taxonomy_npclassifier_02superclass',
+        'structure_taxonomy_npclassifier_03class'
+    ]
+    print('... library')
+    library = pandas.read_csv(
+        filepath_or_buffer=params["library"],
+        usecols=col_list
+    ).rename(
+        columns={
+            'structure_inchikey_2D': 'inchikey_2D',
+            'structure_smiles_2D': 'smiles_2D',
+            'structure_exact_mass': 'exact_mass',
+            'structure_molecular_formula': 'molecular_formula'
+        }
+    ).drop_duplicates()
 else:
     print("""Sorry, wrong file path""")
+
+if os.path.isfile(params["input"]):
+    print('... feature table with components')
+    table = pandas.read_csv(
+        filepath_or_buffer=params["input"]
+    )
+else:
+    print("""Sorry, wrong file path""")
+
+print('Filtering structures ...')
+print('... missing classification')
+table_missing_classification = table[
+    pandas.isnull(table['structure_taxonomy_npclassifier_01pathway']) &
+    pandas.isnull(table['structure_taxonomy_npclassifier_02superclass']) &
+    pandas.isnull(table['structure_taxonomy_npclassifier_03class'])
+    ]
+
+print('... missing mass')
+table_missing_mass = table[[
+    "inchikey_2D",
+    "smiles_2D",
+    "structure_exact_mass"]].drop_duplicates()[
+    pandas.isnull(table['structure_exact_mass'])
+].drop(columns=['structure_exact_mass'])
+
+print('... missing formula')
+table_missing_formula = table[[
+    "inchikey_2D",
+    "smiles_2D",
+    "molecular_formula"]].drop_duplicates()[
+    pandas.isnull(table['molecular_formula'])
+].drop(columns=['molecular_formula'])
+
+print('... keeping the other ones safe')
+table_with_classification = table.merge(table_missing_classification, how='outer')
+table_with_mass = table.merge(table_missing_mass, how='outer')
+table_with_formula = table.merge(table_missing_formula, how='outer')

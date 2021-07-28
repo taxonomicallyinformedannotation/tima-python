@@ -69,7 +69,7 @@ if params["tool"] == 'gnps':
         'inchikey_2D',
         'smiles_2D',
         'molecular_formula',
-        'structure_exact_mass',
+        'exact_mass',
         'score_input',
         'library',
         'structure_taxonomy_npclassifier_01pathway',
