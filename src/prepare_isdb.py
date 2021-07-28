@@ -75,7 +75,7 @@ if os.path.isfile(params["input"]):
         path_or_buf=params["output"],
         index=False
     )
-    
+
     export_params(
         parameters=params,
         directory=paths["data"]["interim"]["config"]["path"],

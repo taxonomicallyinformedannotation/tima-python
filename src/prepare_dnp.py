@@ -61,7 +61,7 @@ if os.path.isfile(params["input"]):
         # 'reference_title',
         # 'reference_doi'
     ]
-    
+
     print('Loading DNP')
     file_initial = pandas.read_csv(
         filepath_or_buffer=params["input"],

@@ -37,7 +37,7 @@ paths = parse_yaml_paths()
 params = get_params(step=step, cli=arguments)
 
 if os.path.isfile(params["input"]):
-    
+
     col_list = ["structure_exact_mass"]
 
     print('Loading files ...')
