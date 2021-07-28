@@ -19,7 +19,9 @@ def clean_gnverifier(file):
     warning = df2[df2['count'] == 1][df2['organismCleaned'].isnull()]
 
     if len(warning.index) != 0:
-        print('Warning: ' + warning["organism"] + ' has no translation, trying with more flexible parameters')
+
+        print('Warning: ' + warning["organism"].values + ' had no translation')
+        print('Trying with more flexible parameters')
 
         organism_table_2 = dataOrganismVerified[['input', 'organismCleaned']].drop_duplicates()
         organism_table_2 = \
