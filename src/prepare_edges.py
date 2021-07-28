@@ -34,8 +34,6 @@ paths = parse_yaml_paths()
 
 params = get_params(step=step, cli=arguments)
 
-# TODO manual possibility to add
-
 if params["tool"] == 'gnps':
 
     print('Loading edges table')
@@ -63,4 +61,5 @@ if params["tool"] == 'gnps':
         step=step)
 
 else:
+    # TODO manual possibility to add
     print("""manual version still to do, Sorry""")

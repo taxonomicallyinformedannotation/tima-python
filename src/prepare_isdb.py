@@ -38,7 +38,8 @@ if os.path.isfile(params["input"]):
 
     print('Loading ISDB results')
     results_table = pandas.read_csv(
-        filepath_or_buffer=params["input"]
+        filepath_or_buffer=params["input"],
+        sep='\t'
     )
 
     print('Formatting ISDB results')

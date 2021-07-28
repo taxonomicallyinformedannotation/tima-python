@@ -37,7 +37,8 @@ def read_clusters(gnps):
     path = 'http://gnps.ucsd.edu/ProteoSAFe/DownloadResultFile?task=' + gnps + '&block=main&file=clusterinfo_summary/'
 
     file = pandas.read_csv(
-        filepath_or_buffer=path
+        filepath_or_buffer=path,
+        sep='\t'
     )
     return file
 

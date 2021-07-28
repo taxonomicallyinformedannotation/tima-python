@@ -20,12 +20,11 @@ Options:
 
 """
 
-import os
-
 import pandas
 from docopt import docopt
 
 from helpers.export_params import export_params
+from helpers.get_gnps import read_clusters
 from helpers.get_params import get_params
 from helpers.parse_yaml_paths import parse_yaml_paths
 
@@ -38,11 +37,61 @@ paths = parse_yaml_paths()
 
 params = get_params(step=step, cli=arguments)
 
-if os.path.isfile(params["input"]):
-    print('bla')
+print('Loading ...')
+print('... features table')
+features_table = pandas.read_csv(
+    filepath_or_buffer=params["input"]
+)
 
-    file_initial = pandas.read_csv(
-        filepath_or_buffer=params["input"]
+if params["tool"] == 'gnps':
+    components_table = read_clusters(gnps=params["gnps"])
+
+    print('THIS STEP CAN BE IMPROVED BY CALCULATING THE CLUSTERS WITHIN SPEC2VEC')
+
+    print('Formatting components')
+    components_table_treated = components_table.rename(
+        columns={
+            'cluster index': 'feature_id',
+            'componentindex': 'component_id',
+            'RTMean': 'rt',
+            'precursor mass': 'mz'
+        }
+    )
+
+    print('Adding components to features')
+    components_table_treated = components_table_treated.merge(
+        features_table).drop_duplicates(
+    )[[
+        'feature_id',
+        'component_id',
+        'rt',
+        'mz',
+        'inchikey_2D',
+        'smiles_2D',
+        'molecular_formula',
+        'structure_exact_mass',
+        'score_input',
+        'library',
+        'structure_taxonomy_npclassifier_01pathway',
+        'structure_taxonomy_npclassifier_02superclass',
+        'structure_taxonomy_npclassifier_03class'
+    ]]
+
+    print('Calculating m/z error')
+    # TODO can be improved
+    if params["mode"] == 'neg':
+        table_filled = components_table_treated.assign(
+            mz_error=(components_table_treated['mz'] + 1.007276 - components_table_treated['structure_exact_mass'])
+        )
+    else:
+        table_filled = components_table_treated.assign(
+            mz_error=(components_table_treated['mz'] - 1.007276 - components_table_treated['structure_exact_mass'])
+        )
+
+    print('Exporting features with components')
+    table_filled.to_csv(
+        path_or_buf=params["output"],
+        index=False
     )
 
     export_params(
