@@ -20,6 +20,8 @@ Options:
 
 """
 
+import os
+
 import pandas
 from docopt import docopt
 
@@ -69,7 +71,7 @@ if params["tool"] == 'gnps':
         'inchikey_2D',
         'smiles_2D',
         'molecular_formula',
-        'exact_mass',
+        'structure_exact_mass',
         'score_input',
         'library',
         'structure_taxonomy_npclassifier_01pathway',

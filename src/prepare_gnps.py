@@ -17,6 +17,8 @@ Options:
 
 """
 
+import os
+
 from docopt import docopt
 
 from helpers.export_params import export_params

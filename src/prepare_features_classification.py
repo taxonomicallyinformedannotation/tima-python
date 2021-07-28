@@ -23,6 +23,7 @@ import os
 import pandas
 from docopt import docopt
 
+from helpers.export_params import export_params
 from helpers.get_params import get_params
 from helpers.parse_yaml_paths import parse_yaml_paths
 
@@ -141,20 +142,17 @@ table_classified = pandas.concat([table_with_classification[[
     'structure_taxonomy_npclassifier_03class'
 ]].drop_duplicates(), table_classified_lotus])
 
-print(table_classified)
 table_massed = pandas.concat([table_with_mass[[
     'inchikey_2D',
     'smiles_2D',
     'structure_exact_mass'
 ]].drop_duplicates(), table_massed_lotus]).drop(columns=['exact_mass'])
-print(table_massed)
 
 table_formuled = pandas.concat([table_with_formula[[
     'inchikey_2D',
     'smiles_2D',
     'molecular_formula'
 ]].drop_duplicates(), table_formuled_lotus])
-print(table_formuled)
 
 table_final = table[[
     'feature_id',
