@@ -20,11 +20,10 @@ conda activate tima-python
 # get a working structure-organism pairs library
 
 ```shell
-cd src
-./get_lotus.sh && python prepare_lotus.py &&
+./src/get_lotus.sh && python src/prepare_lotus.py &&
 # python prepare_dnp.py && # only if you have access to it
-python prepare_library.py &&
-python prepare_adducts.py &&
+python src/prepare_library.py &&
+python src/prepare_adducts.py &&
 
 ```
 # get spectral matches
