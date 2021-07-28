@@ -5,4 +5,7 @@ channels:
 dependencies:
   - pandas
   - docopt
-  - yaml
+  - pyyaml
+  - pip
+  - pip:
+      - pytest-runner

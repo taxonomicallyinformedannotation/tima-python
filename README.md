@@ -3,23 +3,30 @@
 ```
 # repo preparation
 
-# NOT READY YET
-# docker build -t tima . # optional
-# docker run -it --rm -v $PWD:/app tima bash # optional
-# conda env create -f environment.yml &&
-# conda activate tima &&
+To run in docker:
+
+```shell
+docker build -t tima-python . # optional
+docker run -it --rm -v $PWD:/app tima-python
+```
+
+To run locally:
+```shell
+conda env create -f environment.yml &&
+conda activate tima-python
+```
 
 
 # get a working structure-organism pairs library
 
-bash src/get-lotus.sh &&
-cd src &&
-python prepare_lotus.py &&
+```shell
+cd src
+./get_lotus.sh && python prepare_lotus.py &&
 # python prepare_dnp.py && # only if you have access to it
 python prepare_library.py &&
 python prepare_adducts.py &&
 
-
+```
 # get spectral matches
 # (did not copy it there, see how we manage this)
 cd .. &&

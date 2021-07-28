@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from preclean_gnverifier import preclean_gnverifier
+from .preclean_gnverifier import preclean_gnverifier
 import pandas
 import os
 
