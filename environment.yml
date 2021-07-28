@@ -1,0 +1,11 @@
+name: tima-python
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas
+  - docopt
+  - pyyaml
+  - pip
+  - pip:
+      - pytest-runner

@@ -5,6 +5,7 @@
    for further processing"""
 
 import pandas
+import os
 
 from helpers.parse_yaml_paths import parse_yaml_paths
 
@@ -48,6 +49,7 @@ file_formatted = file_initial.assign(
     columns='structure_inchikey'
 ).drop_duplicates()
 
+os.makedirs(paths["data"]["interim"]["libraries"]["path"], exist_ok=True)
 print('Exporting LOTUS library')
 file_formatted.to_csv(
     path_or_buf=paths["data"]["interim"]["libraries"]["lotus"],

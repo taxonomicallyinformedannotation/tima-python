@@ -101,7 +101,7 @@ if params["tool"] == 'gnps':
         'bash' + " " + paths["src"]["gnverifier"]
     )
 
-    dataOrganismVerified_3 = clean_gnverifier(file=paths["data"]["interim"]["taxa"]["verified"])
+    dataOrganismVerified_3 = clean_gnverifier(paths, file=paths["data"]["interim"]["taxa"]["verified"])
 
     print('Formatting obtained OTL taxonomy')
     organism_cleaned_manipulated = manipulating_taxo_otl(dataOrganismVerified_3)

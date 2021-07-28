@@ -99,6 +99,7 @@ if os.path.isfile(params["input"]):
 
     print('Exporting ...')
     print('... structure adducts positive')
+    os.makedirs(paths["data"]["interim"]["adducts"]["path"], exist_ok=True)
     adducts_pos.to_csv(
         path_or_buf=os.path.join(
             paths["data"]["interim"]["adducts"]["path"],

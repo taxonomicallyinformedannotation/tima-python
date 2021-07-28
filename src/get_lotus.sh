@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source "$SCRIPT_DIR"/parse_yaml.sh
+source "$SCRIPT_DIR"/warning.sh
 
-source src/parse_yaml.sh
-source src/warning.sh
-
-eval $(parse_yaml src/paths.yaml)
+eval $(parse_yaml "$SCRIPT_DIR"/paths.yaml)
 
 mkdir -p $data_source_libraries_path
 

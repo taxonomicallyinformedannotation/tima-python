@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from preprocessing.taxa.preclean_gnverifier import preclean_gnverifier
+from .preclean_gnverifier import preclean_gnverifier
+import pandas
+import os
 
 
-def clean_gnverifier(file):
+def clean_gnverifier(paths, file):
     dataOrganismVerified = preclean_gnverifier(file).iloc[1:, :]
 
     df1 = dataOrganismVerified[dataOrganismVerified.input.notnull()]

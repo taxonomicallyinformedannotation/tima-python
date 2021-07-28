@@ -54,6 +54,7 @@ if params["filter"]["mode"]:
 else:
     print("""Great, a comprehensive library""")
 
+os.makedirs(paths["data"]["interim"]["libraries"]["path"], exist_ok=True)
 print('Exporting single library')
 df.to_csv(
     path_or_buf=os.path.join(
