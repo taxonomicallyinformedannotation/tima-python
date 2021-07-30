@@ -85,7 +85,7 @@ if params["tool"] == 'gnps':
         "dense", ascending=False)
     feature_table = feature_table[feature_table['rank'] <= params["top_k"]]
 
-    ## TODO manual possibility to add
+    # TODO manual possibility to add
 
     print('Keeping list of organisms to submit to GNVerifier')
     organism_table = metadata_table[params["column_name"]].drop_duplicates()
