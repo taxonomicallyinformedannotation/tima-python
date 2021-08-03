@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/"parse_yaml.sh
 source "$SCRIPT_DIR/"warning.sh
 
 eval $(parse_yaml paths.yaml)
-cd $base_dir
+cd $base_dir || exit
 mkdir -p $data_interim_path
 mkdir -p $data_interim_annotations_path
 
