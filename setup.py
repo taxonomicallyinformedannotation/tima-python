@@ -62,8 +62,8 @@ setup(
         'Topic :: Utilities',
     ],
     project_urls={
-        'Changelog': 'https://github.com/mandelbrot-project/spectral_lib_matcher/blob/master/CHANGELOG.md',
-        'Issue Tracker': 'https://github.com/mandelbrot-project/spectral_lib_matcher/issues',
+        'Changelog': 'https://gitlab.com/tima5/tima-python/-/blob/main/CHANGELOG',
+        'Issue Tracker': 'https://gitlab.com/tima5/tima-python/-/issues',
     },
     keywords=[
         # eg: 'keyword1', 'keyword2', 'keyword3',
