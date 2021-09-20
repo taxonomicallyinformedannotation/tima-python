@@ -41,7 +41,7 @@ conda activate tima-python
 ## Structure-organism pairs library
 
 ```shell
-./src/get_lotus.sh && 
+bash src/get_lotus.sh && 
 python src/prepare_lotus.py &&
 # python prepare_dnp.py && # only if you have access to it
 python src/prepare_library.py &&
