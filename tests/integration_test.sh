@@ -7,16 +7,16 @@ if [ ! -d config ]; then
 fi
 
 
-./src/get_lotus.sh &&
-python src/prepare_lotus.py &&
-python src/prepare_library.py &&
-python src/prepare_adducts.py &&
-./src/get_example_isdb.sh &&
-./src/get_gnverifier.sh &&
-python src/prepare_gnps.py &&
-python src/prepare_isdb.py &&
-python src/prepare_edges.py &&
-python src/prepare_features_components.py &&
-python src/prepare_features_classification.py &&
-python src/prepare_taxa.py &&
-# python src/process_annotations.py
+bash src/get_lotus.sh &&
+conda run -n tima-python python src/prepare_lotus.py &&
+conda run -n tima-python python src/prepare_library.py &&
+conda run -n tima-python python src/prepare_adducts.py &&
+bash src/get_example_isdb.sh &&
+bash src/get_gnverifier.sh &&
+conda run -n tima-python python src/prepare_gnps.py &&
+conda run -n tima-python python src/prepare_isdb.py &&
+conda run -n tima-python python src/prepare_edges.py &&
+conda run -n tima-python python src/prepare_features_components.py &&
+conda run -n tima-python python src/prepare_features_classification.py &&
+conda run -n tima-python python src/prepare_taxa.py &&
+# conda run -n tima-python python src/process_annotations.py
