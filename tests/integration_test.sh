@@ -16,4 +16,7 @@ python src/prepare_adducts.py &&
 python src/prepare_gnps.py &&
 python src/prepare_isdb.py &&
 python src/prepare_edges.py &&
-python src/prepare_taxa.py
+# python src/prepare_features_components.py &&
+# python src/prepare_features_classification.py &&
+python src/prepare_taxa.py &&
+# python src/process_annotations.py
