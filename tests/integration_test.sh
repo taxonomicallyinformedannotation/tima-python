@@ -18,5 +18,5 @@ conda run -n tima-python python src/prepare_isdb.py &&
 conda run -n tima-python python src/prepare_edges.py &&
 conda run -n tima-python python src/prepare_features_components.py &&
 conda run -n tima-python python src/prepare_features_classification.py &&
-conda run -n tima-python python src/prepare_taxa.py &&
+conda run -n tima-python python src/prepare_taxa.py # &&
 # conda run -n tima-python python src/process_annotations.py
