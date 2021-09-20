@@ -24,6 +24,15 @@ Optionally, you may want to add:
 
 ## Repo preparation
 
+```shell
+git clone git@gitlab.com:tima5/tima-r.git <directory>
+cd <directory>
+```
+
+### Windows Notice
+
+If you are using Windows, please install [WSL2](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#whats-new-in-wsl-2)
+
 ### To run in docker:
 
 ```shell
