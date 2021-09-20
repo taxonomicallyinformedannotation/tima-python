@@ -56,7 +56,7 @@ python src/prepare_adducts.py &&
 # normally it would be 'python src/process_spectra.py' but for now we have to think about it.
 # instead we provide an example file coming from the new ISDB.
 # It also works with annotations coming from GNPS (see next steps)
-./src/get_example_isdb.sh
+bash src/get_example_isdb.sh
 ```
 
 ### Format MS2 annotations
@@ -78,7 +78,7 @@ python src/prepare_features_classification.py
 ### Get biological taxonomy information
 
 ```shell
-./src/get_gnverifier.sh && 
+bash src/get_gnverifier.sh && 
 python src/prepare_taxa.py
 ```
 
