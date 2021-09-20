@@ -8,4 +8,4 @@ RUN conda update -n base -c defaults conda && conda env create -f environment.ym
 RUN echo "conda activate tima-python" >> ~/.bashrc
 COPY . /app
 SHELL ["/bin/bash", "--login", "-c"]
-RUN ./tests/tests.sh
+RUN ./tests/integration_test.sh
