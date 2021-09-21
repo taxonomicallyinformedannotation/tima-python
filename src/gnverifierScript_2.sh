@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# -*- coding: utf-8 -*-
 
-. src/parse_yaml.sh
-. src/warning_gnverifier.sh
+source src/parse_yaml.sh
+source src/warning_gnverifier.sh
 
 eval $(parse_yaml paths.yaml)
 
