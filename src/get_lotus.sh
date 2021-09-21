@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-source "$SCRIPT_DIR"/parse_yaml.sh
-source "$SCRIPT_DIR"/warning.sh
+. "$SCRIPT_DIR"/parse_yaml.sh
+. "$SCRIPT_DIR"/warning.sh
 
 eval $(parse_yaml paths.yaml)
 
