@@ -5,7 +5,7 @@ if [ ! -d config ]; then
   exit 1
 fi
 
-
+cp -R config/default config/params &&
 bash src/get_lotus.sh &&
 conda run -n tima-python python src/prepare_lotus.py &&
 conda run -n tima-python python src/prepare_library.py &&
