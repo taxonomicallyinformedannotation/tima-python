@@ -49,6 +49,11 @@ conda env create -f environment.yml &&
 conda activate tima-python
 ```
 
+```shell
+# copy the default params to adapat to your data later on
+cp -R config/default config/params
+```
+
 ## Structure-organism pairs library
 
 ```shell

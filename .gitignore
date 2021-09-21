@@ -8,6 +8,8 @@
 
 bin/**
 
+config/params/**
+
 data/source/private/**
 data/source/libraries/**
 data/interim/**
