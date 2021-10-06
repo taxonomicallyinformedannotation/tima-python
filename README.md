@@ -25,8 +25,8 @@ Optionally, you may want to add:
 ## Repo preparation
 
 ```shell
-git clone git@gitlab.com:tima5/tima-r.git <directory>
-cd <directory>
+git clone git@github.com:taxonomicallyinformedannotation/tima-python.git
+cd tima-python
 ```
 
 ### Windows Notice
@@ -48,6 +48,8 @@ docker run -it --rm -v $PWD:/app tima-python
 conda env create -f environment.yml &&
 conda activate tima-python
 ```
+
+## Copy initial parameters
 
 ```shell
 # copy the default params to adapat to your data later on
