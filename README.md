@@ -61,7 +61,7 @@ cp -R config/default config/params
 ```shell
 bash src/get_lotus.sh && 
 python src/prepare_lotus.py &&
-# python prepare_dnp.py && # only if you have access to it
+# python prepare_closed.py && # only if you have access to it
 python src/prepare_library.py &&
 python src/prepare_adducts.py &&
 ```

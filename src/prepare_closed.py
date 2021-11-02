@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """You can use this script with the following example:
-python prepare_dnp.py --input '../lotus-processor/data/processed/210715_dnp_metadata.csv.gz' 
+python prepare_closed.py --input '../lotus-processor/data/processed/210715_dnp_metadata.csv.gz' 
 
-Usage: prepare_dnp.py [--input=<input>] [--output=<output>]
+Usage: prepare_closed.py [--input=<input>] [--output=<output>]
 
 Arguments:
-  -i --input=<input>    Where your dnp is located. Works only with special in lab dnp. Cannot be shared
+  -i --input=<input>    Where your closed resource is located. Cannot be shared
   -o --output=<output>  Output
 
 Options:
@@ -28,7 +28,7 @@ from helpers.parse_yaml_paths import parse_yaml_paths
 if __name__ == '__main__':
     arguments = docopt(__doc__)
 
-step = 'prepare_dnp'
+step = 'prepare_closed'
 
 paths = parse_yaml_paths()
 
