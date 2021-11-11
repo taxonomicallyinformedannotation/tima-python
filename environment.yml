@@ -6,6 +6,5 @@ dependencies:
   - pandas
   - docopt
   - pyyaml
-  - pip
   - pip:
       - pytest-runner
