@@ -31,9 +31,7 @@ cd tima-python
 
 ### Windows Notice
 
-If you are using Windows, please install [WSL2](https://docs.microsoft.com/en-us/windows/wsl/compare-versions#whats-new-in-wsl-2)
-
-You will also need to install [Choco](https://chocolatey.org/install).
+If you are using Windows, you will need to install [Choco](https://chocolatey.org/install).
 
 Then run:
 
