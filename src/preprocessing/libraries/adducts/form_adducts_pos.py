@@ -56,7 +56,7 @@ def form_adducts_pos(dataframe, adducts):
         pos_1_1proton1ammonium=dataframe['exact_mass'] +
                                dataframe['proton'] +
                                dataframe['ammonium'],
-        pos_1_sodium=dataframe['exact_mass'] +
+        pos_1_1sodium=dataframe['exact_mass'] +
                      dataframe['sodium'],
         pos_1_1proton1methanol=dataframe['exact_mass'] +
                                dataframe['proton'] +
