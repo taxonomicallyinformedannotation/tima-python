@@ -1,8 +1,10 @@
 # Taxonomically Informed Metabolite Annotation
 
 This repository is experimental. ⚠️
+
 It is currently not fully working. 🛑
-Any help is welcome. 👍
+
+Any help for its development welcome. 👍
 
 The initial work is available at https://doi.org/10.3389/fpls.2019.01329, and many improvements have been made since
 then. 
